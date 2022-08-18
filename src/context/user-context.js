@@ -5,10 +5,20 @@ const UserContext = createContext(null);
 const UserProvider = ({ children }) => {
   const [userDetails, setUserDetails] = useState({
     fullname: "",
-    username: "",
+    email: "",
   });
+  const [token, setToken] = useState(localStorage.getItem("CT-token") || "");
+  const [users, setUsers] = useState([
+    {
+      fullname: "John Doe",
+      email: "john.doe@gmail.com",
+      password: "1234",
+    },
+  ]);
   return (
-    <UserContext.Provider value={{ userDetails, setUserDetails }}>
+    <UserContext.Provider
+      value={{ userDetails, setUserDetails, token, setToken, users, setUsers }}
+    >
       {children}
     </UserContext.Provider>
   );

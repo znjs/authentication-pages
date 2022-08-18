@@ -1,5 +1,7 @@
+import { nanoid } from "nanoid";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../../context/user-context";
 import "./login.css";
 
 export const Login = () => {
@@ -8,7 +10,25 @@ export const Login = () => {
     password: "",
     rememberMe: false,
   });
+  const { setUserDetails, userDetails, users } = useUser();
   const navigate = useNavigate();
+
+  const loginHandler = () => {
+    console.log(userDetails);
+    if (!!user.email && !!user.password) {
+      const foundUser = users.find(
+        (singleUser) =>
+          user.email === singleUser.email &&
+          user.password === singleUser.password
+      );
+      if (foundUser) {
+        setUserDetails((prev) => ({ ...prev, ...foundUser, token: nanoid() }));
+        navigate("/");
+      } else {
+        console.error("User not found");
+      }
+    }
+  };
   return (
     <div className="flex h-screen w-screen text-center bg-slate-800 ">
       <div className="flex justify-center items-center flex-grow min-w-fit">
@@ -73,7 +93,7 @@ export const Login = () => {
                   ? "cursor-pointer"
                   : "cursor-not-allowed"
               }`}
-              onClick={() => console.log(user)}
+              onClick={loginHandler}
             >
               SIGN IN
             </button>

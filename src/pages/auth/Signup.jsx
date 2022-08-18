@@ -1,10 +1,27 @@
+import { nanoid } from "nanoid";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../../context/user-context";
 import "./login.css";
 
 export const Signup = () => {
   const [user, setUser] = useState({ email: "", password: "", fullname: "" });
   const navigate = useNavigate();
+  const { users, setUsers, setUserDetails } = useUser();
+  const signupHandler = () => {
+    if (!!user.email && !!user.password) {
+      const foundUser = users.find(
+        (singleUser) => user.email === singleUser.email
+      );
+      if (foundUser) {
+        console.error("User already exists");
+      } else {
+        setUserDetails((prev) => ({ ...prev, ...user, token: nanoid() }));
+        setUsers((prev) => [...prev, { ...user }]);
+        navigate("/");
+      }
+    }
+  };
   return (
     <div className="flex h-screen w-screen text-center bg-slate-800 ">
       <div className="flex justify-center items-center flex-grow min-w-fit">
@@ -71,7 +88,7 @@ export const Signup = () => {
                   ? "cursor-pointer"
                   : "cursor-not-allowed"
               }`}
-              onClick={() => console.log(user)}
+              onClick={signupHandler}
             >
               SIGN UP
             </button>
@@ -79,9 +96,9 @@ export const Signup = () => {
               Already have an Account?{" "}
               <span
                 className="underline cursor-pointer"
-                onClick={() => navigate("/")}
+                onClick={() => navigate("/login")}
               >
-                Sign up
+                login
               </span>
             </p>
           </div>

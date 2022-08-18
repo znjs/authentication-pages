@@ -19,12 +19,12 @@ export const Home = () => {
   };
   return (
     <div className="min-h-screen bg-slate-800 text-white">
-      <div className="flex justify-between items-center">
+      <nav className="flex justify-between items-center">
         <h1 className="text-lg p-2">Home</h1>
-        <button className="bg-red-500 rounded-lg p-1" onClick={logout}>
+        <button className="bg-red-500 rounded-lg p-1 mx-3" onClick={logout}>
           Logout
         </button>
-      </div>
+      </nav>
       <Dashboard />
     </div>
   );

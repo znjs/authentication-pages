@@ -3,7 +3,11 @@ import { useNavigate } from "react-router-dom";
 import "./login.css";
 
 export const Login = () => {
-  const [user, setUser] = useState({ email: "", password: "" });
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+    rememberMe: false,
+  });
   const navigate = useNavigate();
   return (
     <div className="flex h-screen w-screen text-center bg-slate-800 ">
@@ -47,6 +51,20 @@ export const Login = () => {
                 placeholder="password"
                 className="bg-black py-3 my-4 px-2 border border-gray-500 rounded-xl shadow text-base font-sans"
               />
+            </div>
+            <div className="flex items-center justify-start mx-4 my-2">
+              <input
+                type="checkbox"
+                name="remember-me"
+                id="remember-me"
+                value={user.rememberMe}
+                onChange={() =>
+                  setUser((prev) => ({ ...prev, rememberMe: !prev.rememberMe }))
+                }
+              />
+              <label htmlFor="remember-me" className="mx-2">
+                Remember Me
+              </label>
             </div>
             <button
               type="button"

@@ -2,7 +2,6 @@ import { useUser } from "../../context/user-context";
 
 export const Dashboard = () => {
   const { userDetails } = useUser();
-  console.log(userDetails);
   return (
     <div className="flex border rounded-lg py-2 px-4 mx-4">
       <i className="fa-solid fa-user-tie text-8xl"></i>

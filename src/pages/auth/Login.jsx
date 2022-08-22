@@ -10,11 +10,10 @@ export const Login = () => {
     password: "",
     rememberMe: false,
   });
-  const { setUserDetails, userDetails, users } = useUser();
+  const { setUserDetails, userDetails, users, setToken } = useUser();
   const navigate = useNavigate();
 
   const loginHandler = () => {
-    console.log(userDetails);
     if (!!user.email && !!user.password) {
       const foundUser = users.find(
         (singleUser) =>
@@ -22,7 +21,8 @@ export const Login = () => {
           user.password === singleUser.password
       );
       if (foundUser) {
-        setUserDetails((prev) => ({ ...prev, ...foundUser, token: nanoid() }));
+        setUserDetails((prev) => ({ ...prev, ...foundUser }));
+        setToken(nanoid());
         navigate("/");
       } else {
         console.error("User not found");

@@ -15,9 +15,22 @@ const UserProvider = ({ children }) => {
       password: "1234",
     },
   ]);
+  const [modalDetails, setModalDetails] = useState({
+    display: false,
+    data: {},
+  });
   return (
     <UserContext.Provider
-      value={{ userDetails, setUserDetails, token, setToken, users, setUsers }}
+      value={{
+        userDetails,
+        setUserDetails,
+        token,
+        setToken,
+        users,
+        setUsers,
+        modalDetails,
+        setModalDetails,
+      }}
     >
       {children}
     </UserContext.Provider>

@@ -7,7 +7,7 @@ import "./login.css";
 export const Signup = () => {
   const [user, setUser] = useState({ email: "", password: "", fullname: "" });
   const navigate = useNavigate();
-  const { users, setUsers, setUserDetails } = useUser();
+  const { users, setUsers, setUserDetails, setToken } = useUser();
   const signupHandler = () => {
     if (!!user.email && !!user.password) {
       const foundUser = users.find(
@@ -16,8 +16,9 @@ export const Signup = () => {
       if (foundUser) {
         console.error("User already exists");
       } else {
-        setUserDetails((prev) => ({ ...prev, ...user, token: nanoid() }));
+        setUserDetails((prev) => ({ ...prev, ...user }));
         setUsers((prev) => [...prev, { ...user }]);
+        setToken(nanoid());
         navigate("/");
       }
     }
